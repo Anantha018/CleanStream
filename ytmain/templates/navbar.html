@@ -1,0 +1,292 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Clean Stream{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/navbar_styles.css' %}">
+    <link rel="icon" href="{% static 'images/CleanStreamIcon7-removebg.png' %}" type="image/png">
+    
+    {% block extra_styles %}
+    {% endblock %}
+</head>
+<body>
+    
+   
+    <div class="navbar" id="navbar">
+        <ul>
+            <li class="search-text"><a href="{% url 'search_youtube' %}" data-page="{% url 'search_youtube' %}">Search</a></li>
+            <li><a id="myPlaylists" onclick="myPlaylists()">My Playlists</a></li>
+            <li><a href="https://clean-stream-playlist.vercel.app/" target="_blank" rel="noopener noreferrer">YouTube Public Playlist Finder</a></li>
+            <li><a href="{% url 'logout' %}" data-page="{% url 'logout' %}">Logout</a></li>
+        </ul>
+        <button class="navbar-toggle" id="navbarToggle">|</button>
+    </div>
+
+    <div class="content" id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div id="showPlaylists" class="showPlaylistsmodal-nav">
+        <div class="show-playlists-modal-content-nav">
+            <span class="close-btn" onclick="hideShowAllPlaylistsModal()">&times;</span>
+            <h2>All Playlists</h2>
+            <div id="showPlaylistList"></div>
+            <div id="emptyPlaylistMessage-nav" class="empty-playlist-message" style="display: none;">Create a playlist to add your songs</div>
+        </div>
+    </div>    
+    
+
+    <div id="playlistDetails" class="showdetailsmodal">
+        <div class="show-details-modal-content">
+            <span class="close-btn" onclick="hidePlaylistDetailsModal()">&times;</span>
+            <h2 id="playlistTitle">Playlist Details</h2>
+            <ul id="playlistDetailsList"></ul>
+        </div>
+    </div>
+
+    {% block extra_scripts %}
+    {% endblock %}
+
+    <script> 
+        var navbar = document.getElementById('navbar');
+        var content = document.getElementById('content');
+        
+        document.getElementById('navbarToggle').addEventListener('click', function() {
+            var navbar = document.getElementById('navbar');
+            var content = document.getElementById('content');
+            if (navbar.classList.contains('open')) {
+                navbar.classList.remove('open');
+                content.classList.remove('shifted');
+            } else {
+                navbar.classList.add('open');
+                content.classList.add('shifted');
+                queueWindow.style.display = 'none';
+            }
+        });
+
+        document.querySelectorAll('.navbar a').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                var currentPage = window.location.pathname;
+                var linkPage = link.getAttribute('data-page');
+                if (currentPage === linkPage) {
+                    event.preventDefault(); // Prevent the default action
+                }
+            });
+        });
+
+        function deletePlaylist(playlistName) {
+            fetch('/delete-playlist/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ name: playlistName })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    myPlaylists(); // Refresh the list of playlists
+                    showNotification(`Deleted ${playlistName} playlist`);
+                } else {
+                    showNotification('Error deleting the playlist:', data.message);
+                }
+            })
+            .catch(error => showNotification('Error:', error));
+        }
+        
+        function myPlaylists() {
+            fetch('/get-playlists/', {
+                method: 'GET',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const showPlaylistList = document.getElementById('showPlaylistList');
+                showPlaylistList.innerHTML = ''; // Clear any existing playlists
+                data.playlists.forEach(playlist => {
+                    const ul = document.createElement('ul');
+                    ul.innerHTML = `
+                        <ul>
+                            <button class="playlist-name-btn" onclick="getPlaylistDetails(${playlist.id})">${playlist.name}</button>
+                            <button class="delete-btn" onclick="deletePlaylist('${playlist.name}')"><i class="fas fa-trash-alt"></i></button>
+                        </ul>
+                    `;
+                    showPlaylistList.appendChild(ul);
+                });
+                showShowAllPlaylistsModal(); // Show the playlists modal
+            })
+            .catch(error => showNotification('Error fetching playlists:', error));
+        }
+        
+        function showShowAllPlaylistsModal() {
+            const modal = document.getElementById('showPlaylists');
+            const playlistList = document.getElementById('showPlaylistList');
+            const emptyMessage = document.getElementById('emptyPlaylistMessage-nav');
+
+            if (playlistList.children.length === 0) {
+                emptyMessage.style.display = 'block';
+            } else {
+                emptyMessage.style.display = 'none';
+            }
+        
+            modal.style.display = 'block';
+        
+            // Hide other elements
+            const queueWindow = document.getElementById('queueWindow'); // Ensure this element is selected correctly
+            const navbar = document.getElementById('navbar'); // Ensure this element is selected correctly
+            const content = document.getElementById('content'); // Ensure this element is selected correctly
+        
+            queueWindow.style.display = 'none';
+            navbar.classList.remove('open');
+            content.classList.remove('shifted');
+            navbar.style.display = 'none';
+        }
+        
+        
+        function hideShowAllPlaylistsModal() {
+            const modal = document.getElementById('showPlaylists');
+            modal.style.display = 'none';
+            
+            navbar.classList.remove('open');
+            content.classList.remove('shifted');
+            navbar.style.display='block';
+        }        
+        
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        
+        // Fetch playlist details and then add items to queue sequentially
+        function getPlaylistDetails(playlistId) {
+            hideShowAllPlaylistsModal();
+            disableMenuContainers();
+            fetch(`/get-playlist-details/${playlistId}/`, {
+                method: 'GET',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const playlistDetailsList = document.getElementById('playlistDetailsList');
+                const playlistTitle = document.getElementById('playlistTitle');
+                playlistTitle.innerText = data.name;
+                playlistDetailsList.innerHTML = ''; // Clear any existing details
+
+                if (data.items.length > 0) {
+                    const playPlaylistBtn = document.createElement('button');
+                    playPlaylistBtn.innerText = 'Play';
+                    playPlaylistBtn.classList.add('play-playlist-btn');
+                    playPlaylistBtn.addEventListener('click', async function() {
+                        playPlaylistBtn.disabled = true; 
+                        playPlaylistBtn.classList.add('loading'); 
+                        clearQueue();  // Clear the queue before adding new items
+                        await delay(2000);
+                        try {
+                            await addItemsToQueueSequentially(data.items);
+                            showNotification(`Now Playing: '${playlistTitle.innerText}' playlist`);
+                        } catch (error) {
+                            showNotification('Failed to add items to queue');
+                        } finally {
+                            // Re-enable the button after processing is complete
+                            playPlaylistBtn.disabled = false;
+                            playQueue();  // Start playing the queue after all items are added
+                            playPlaylistBtn.classList.remove('loading'); 
+                            enableMenuContainers();
+                        }
+                    });
+                    playlistDetailsList.appendChild(playPlaylistBtn);
+                } else {
+                    const emptyMessage = document.createElement('div');
+                    emptyMessage.innerText = 'Your playlist is empty. Add some tunes to start jamming!';
+                    emptyMessage.classList.add('empty-playlist-message');
+                    playlistDetailsList.appendChild(emptyMessage);
+                }
+
+                data.items.forEach(item => {
+                    const ul = document.createElement('ul');
+                    ul.innerHTML = `
+                        <li class="details-list">
+                            <span class="details-list-title">${item.title}</span><br>
+                            <button class="details-list-removebtn" onclick="removeFromPlaylist('${item.video_url}', '${playlistId}')"><i class="fas fa-minus-circle"></i> Remove</button>
+                        </li>
+                    `;
+                    playlistDetailsList.appendChild(ul);
+                });
+
+                showPlaylistDetailsModal();
+                
+            })
+            .catch(error => {
+                enableMenuContainers();
+            });
+        }
+        
+        function showPlaylistDetailsModal() {
+            const playlistDetailsModal = document.getElementById('playlistDetails');
+            playlistDetailsModal.style.display = 'block';
+
+            queueWindow.style.display = 'none' ;
+
+            navbar.classList.remove('open');
+            content.classList.remove('shifted');
+            navbar.style.display='none';
+        }
+
+        function hidePlaylistDetailsModal() {
+            document.getElementById('playlistDetails').style.display = 'none';
+
+            navbar.classList.remove('open');
+            content.classList.remove('shifted');
+            navbar.style.display='block';
+        }
+
+        function removeFromPlaylist(videoUrl, playlistId) {
+            fetch('/remove-from-playlist/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')  // Ensure this function retrieves the CSRF token correctly
+                },
+                body: JSON.stringify({videoUrl: videoUrl, playlistId: playlistId})
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    getPlaylistDetails(playlistId); // Refresh the playlist details
+                } else {
+                    showNotification('Error removing item from playlist:', data.message);
+                }
+            })
+            .catch(error => showNotification('Error:', error));
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+    </script>
+</body>
+</html>

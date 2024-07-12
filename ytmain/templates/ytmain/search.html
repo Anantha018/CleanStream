@@ -1,0 +1,88 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block title %}Clean Stream{% endblock %}
+
+{% block extra_styles %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="{% static 'images/CleanStreamIcon7-removebg.png' %}" type="image/png">
+<link rel="stylesheet" href="{% static 'css/search_styles.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="search-container">
+        <div id="createPlaylistContainer">
+            <button onclick="showCreatePlaylistModal()">+</button>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="query" placeholder="Search...">
+            <button id="searchButton" onclick="search()"><i class="fas fa-search"></i></button>
+            <button id="queueButton" onclick="toggleQueueWindow()"><i class="fas fa-list"></i></button>
+            <div id="loading"></div>
+            <div id="notification" class="notification"></div>
+        </div>
+    </div>
+
+    <p class="note">Note: Some songs may not be playable due to unavailable audio</p>
+    <p class="center-text">Add songs to the queue to store them for playback</p>
+    
+    <div id="results-container" class="results-container">
+        <div id="results"></div>
+    </div>
+
+</div>
+
+<div id="queueWindow" class="queue-window">
+    <div class="queue-window-header">
+        <h2>Queue</h2>
+        <button id="closeQueueWindow" onclick="toggleQueueWindow()"><i class="fas fa-times"></i></button>
+        <button id="clearQueueButton" onclick="clearQueue()"><i class="fas fa-trash-alt"></i></button>
+    </div>
+    <ul id="queueList"></ul> 
+    <div id="emptyQueueMessage" class="empty-playlist-message" style="display: none;">Your queue is empty. Add songs to get started</div>
+</div>
+
+<div class="audio-player-container">
+    <audio id="audioPlayer" controls></audio>
+    <div id="audioTitle" class="audio-title"></div>
+    <div class="audio-controls">
+        <button id="prevButton" onclick="playPreviousButton()">
+            <i class="fas fa-backward"></i>
+        </button>
+        <button id="loopButton" onclick="toggleLoop()">
+            <i class="fas fa-repeat"></i>
+        </button>
+        <button id="nextButton" onclick="playNextButton()">
+            <i class="fas fa-forward"></i>
+        </button>
+    </div>
+</div>
+
+<div id="createPlaylistModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="hideCreatePlaylistModal()">&times;</span>
+        <h2>Create New Playlist</h2>
+        <input type="text" id="playlistNameInput" placeholder="Enter playlist name" required>
+        <button class="createPlaylistBtn" onclick="createPlaylist()">Create</button>
+    </div>
+</div>
+
+<div id="showPlaylistsModal" class="modal">
+    <div class="show-playlists-modal-content">
+        <span class="close-button" onclick="hideShowPlaylistsModal()">&times;</span>
+        <h2>Select Playlist</h2>
+        <ul id="playlistList"></ul>
+        <div id="emptyPlaylistMessage" class="empty-playlist-message" style="display: none;">Create a playlist to add your songs</div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/search_script.js' %}"></script>
+{% endblock %}

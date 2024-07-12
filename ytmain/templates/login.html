@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Stream</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login_styles.css' %}">
+    <link rel="icon" href="{% static 'images/CleanStreamIcon7-removebg.png' %}" type="image/png">
+    
+</head>
+<body>
+    <div class="icon-title-container">
+        <img src="{% static 'images/CleanStreamIcon7-removebg.png' %}" alt="Icon" class="icon">
+        <h1 class="page-title">Clean Stream</h1>
+    </div>
+
+    <div class="container-wrapper">
+        <div class="container">
+            <h2>Login</h2>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" placeholder="Enter your registered username" required><br><br>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Password" required><br><br>
+                <button type="submit" class="btn-login">Sign In</button>
+            </form>
+            <p class="register-link">Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
+        </div>
+    </div>
+    
+</body>
+</html>

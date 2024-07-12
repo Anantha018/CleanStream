@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Stream</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login_styles.css' %}">
+    <link rel="icon" href="{% static 'images/CleanStreamIcon3-removebg.png' %}" type="image/png">
+</head>
+<body>
+    <div class="icon-title-container">
+        <img src="{% static 'images/CleanStreamIcon7-removebg.png' %}" alt="Icon" class="icon">
+        <h1 class="page-title">CleanStream</h1>
+    </div>
+
+    <div class="container">
+        <h2>Register</h2>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form method="post" class="login-form" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" placeholder="Choose a unique username" required><br>
+            <span class="error-message" id="username-error" style="display:none; color:red;">Username must be at least 8 characters long.</span>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="Password" required><br>
+            <span class="error-message" id="password-error" style="display:none; color:red;">Password must be at least 8 characters long.</span>
+            <br>
+            <button type="submit" class="btn-login">Sign up</button>
+        </form>
+        <p class="register-link">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+
+    <script>
+        function validateForm() {
+            var isValid = true;
+            var username = document.getElementById('username').value.trim();
+            var password = document.getElementById('password').value.trim();
+            var usernameError = document.getElementById('username-error');
+            var passwordError = document.getElementById('password-error');
+
+            if (username.length < 8) {
+                usernameError.style.display = 'inline';
+                isValid = false;
+            } else {
+                usernameError.style.display = 'none';
+            }
+
+            if (password.length < 8) {
+                passwordError.style.display = 'inline';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #181818;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Navbar styling */
+.navbar {
+    width: 180px;
+    background-color: #242424;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    left: -250px; /* Initially hidden */
+    top: 0;
+    transition: left 0.3s ease; /* Smooth transition */
+    z-index: 1000; /* Ensure navbar is above content */
+}
+
+/* Navbar open state */
+.navbar.open {
+    left: 0; /* Show the navbar */
+}
+
+/* Navbar list styling */
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Navbar list item styling */
+.navbar ul li {
+    margin: 30px 0;
+}
+
+/* Navbar link styling */
+.navbar ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 300;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Navbar link hover state */
+.navbar ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Navbar toggle button styling */
+.navbar-toggle {
+    position: fixed;
+    width: 100px;
+    top: 40px; /* Adjust top if needed */
+    left: -45px; /* Adjust left if needed */
+    font-weight: bold;
+    border: none;
+    padding: 15px;
+    font-size: 18px; /* Adjust font size if needed */
+    cursor: pointer;
+    z-index: 1100; /* Ensure button is above content and navbar */
+    transition: transform 0.3s ease; /* Smooth transition for transform property */
+}
+
+.navbar-toggle.disabled {
+    pointer-events: none; /* Disable click events */
+    opacity: 0.5; /* Make it look disabled */
+}
+
+/* Navbar toggle button hover state */
+.navbar-toggle:hover {
+    transform: scale(1.05); /* Enlarge button on hover */
+}
+
+/* Search text margin adjustment */
+.search-text {
+    margin-top: 100px !important;
+}
+
+/* Playlist cursor pointer */
+#myPlaylists {
+    cursor: pointer;
+}
+
+
+/* Modal container */
+.showPlaylistsmodal-nav {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Slightly transparent black background */
+}
+
+/* Modal content */
+.show-playlists-modal-content-nav {
+    background-color: #181818;
+    margin: 5% auto; /* Center the modal vertically and horizontally */
+    padding: 10px;
+    border: 10px solid #181818;
+    border-radius: 10px;
+    width: 30% !important; 
+    max-width: 100%;/* Adjust the width based on your design */
+    max-height: 90vh; /* Max height relative to the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+/* Playlist list */
+#showPlaylistList {
+    max-height: 400px; /* Adjust this value as needed */
+    overflow-y: auto; /* Enable vertical scrolling for the playlist list */
+}
+
+/* Delete button */
+.delete-btn {
+    width: 22%;
+    background-color: rgb(230, 25, 25);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-left: 2%;
+    font-size: medium;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.delete-btn:hover {
+    background-color: darkred !important;
+}
+
+/* Playlist name button */
+.playlist-name-btn {
+    width: 50%;
+    cursor: pointer;
+    border: 1px solid #ccc !important;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: medium;
+    font-weight: 100;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    white-space: normal; /* Allows the text to wrap */
+    word-wrap: break-word; /* Breaks long words to wrap */
+    word-break: break-word; /* Ensures word breaks to fit */
+    text-align: center; /* Centers the text horizontally */
+    padding: 10px; /* Adds some padding for better readability */
+}
+
+#showPlaylistList button:hover {
+    background-color: #6b6b6b;
+    transform: scale(1.01);
+}
+
+/* Close button */
+.close-btn {
+    color: #b9afaf;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s !important;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: rgb(165, 156, 156);
+    text-decoration: none;
+    cursor: pointer;
+    transform: scale(1.1) !important;
+}
+
+/* Content adjustments */
+.content {
+    margin-left: 0;
+    padding: 20px;
+    transition: margin-left 0.3s ease; /* Smooth transition */
+    flex-grow: 1;
+}
+.content.shifted {
+    margin-left: 250px; /* Space for navbar */
+}
+
+/* Modal background */
+.showdetailsmodal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Slightly transparent black background */
+}
+
+/* Modal content box */
+.show-details-modal-content {
+    background-color: #181818;
+    margin: 5% auto; /* Center the modal vertically and horizontally */
+    padding: 10px;
+    border: 10px solid #181818;
+    border-radius: 10px;
+    width: 50%; /* Adjust the width based on your design */
+    max-height: 90vh; /* Max height relative to the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+/* Play playlist button */
+.play-playlist-btn {
+    align-items: center;
+    justify-content: center;
+    width: 10% !important; /* Fixed width */
+    padding: 10px;
+    box-sizing: border-box; /* Ensure padding is included in width */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(22, 207, 87);
+    color: rgb(16, 15, 15);
+    font-size: larger;
+    font-weight: bold;
+    margin-left: 45%; /* Center horizontally in the parent container */
+    margin-right: auto; /* Center horizontally in the parent container */
+    margin-bottom: 5%; /* Margin at the bottom */
+    text-align: center; /* Center text inside the button */
+    transition: transform 0.3s ease; 
+}
+
+.play-playlist-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Playlist details list */
+#playlistDetailsList {
+    max-height: 400px; /* Adjust this value as needed */
+    overflow-y: auto; /* Enable vertical scrolling for the playlist list */
+    margin: 0; /* Ensure no extra margins */
+    padding: 0; /* Ensure no extra padding */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.details-list {
+    margin-bottom: 15px;
+    font-size: medium;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 300;
+    display: inline-block;
+}
+
+.details-list-removebtn {
+    margin-top: 8px; /* Adds space above the button */
+    background-color: crimson;
+    font-weight: bold;
+    transition: transform 0.3s ease; /* Apply transition for smooth scaling */
+}
+
+.details-list-removebtn:hover {
+    background-color: rgb(211, 18, 18);
+    transform: scale(1.02); /* Scale the button when hovered */
+}
+
+.empty-playlist-message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #228B22;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.loading {
+    position: relative;
+    cursor: not-allowed;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-top: 2px solid #555;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.empty-playlist-message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #228B22;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .show-details-modal-content {
+        width: 95% !important; /* Make the modal content wider on mobile */
+        margin: 10% auto; /* Adjust vertical centering */
+        padding: 15px; /* Increase padding for better spacing on mobile */
+    }
+
+    .play-playlist-btn {
+        width: 25% !important; /* Make the button larger on mobile */
+        margin-left: 40%; /* Center the button */
+        font-size: medium; /* Adjust font size for mobile */
+    }
+
+    .details-list {
+        font-size: small; /* Adjust font size for mobile */
+    }
+
+    .details-list-removebtn {
+        width: 39%; /* Make the button take full width on mobile */
+        margin-top: 8px; /* Adjust margin for spacing */
+        font-size: small; /* Adjust font size for mobile */
+    }
+
+    .empty-playlist-message {
+        font-size: large; /* Adjust font size for better readability on mobile */
+    }
+}
+
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 768px) {
+    /* Adjust navbar width and left position for mobile screens */
+    .navbar {
+        width: 40%; /* Adjust width for mobile devices */
+        left: -100%; /* Initially hidden */
+    }
+
+    /* Open state for navbar on mobile */
+    .navbar.open {
+        left: 0; /* Show the navbar */
+    }
+
+    /* Adjust navbar toggle button position for mobile */
+    .navbar-toggle {
+        position: fixed;
+        width: 45px; /* Adjust width for mobile devices */
+        height: 30px;
+        top: 38px; /* Adjust top position for mobile */
+        left: -16px; /* Adjust left position for mobile */
+        padding: 1px; /* Adjust padding for mobile */
+        font-size: 16px; /* Adjust font size for mobile */
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .navbar ul {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 30%;
+    }
+
+    /* Modal content adjustments for mobile */
+    .show-playlists-modal-content-nav {
+        width: 95% !important;
+        padding: 15px;
+    }
+
+    /* Delete button adjustments for mobile */
+    .delete-btn {
+        width: 30%; /* Make the delete button larger on mobile */
+        margin-left: 5%; /* Increase margin for spacing */
+        font-size: small; /* Adjust font size for mobile */
+    }
+
+    /* Playlist name button adjustments for mobile */
+    .playlist-name-btn {
+        width: 50%; /* Make the playlist name button larger on mobile */
+        font-size: small; /* Adjust font size for mobile */
+    }
+
+
+}
+

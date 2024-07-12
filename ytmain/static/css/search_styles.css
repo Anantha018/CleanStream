@@ -1,0 +1,945 @@
+/* Base styles for larger screens */
+body {
+    background-color: #181818;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 50px;
+    margin-left: 40px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the start of the container */
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200%; /* Ensure the search box uses available space */
+    max-width: 800px; /* Maximum width */
+    padding: 20px; /* Padding inside the search box */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.search-box input[type="text"] {
+    width: 500px; /* Adjust width to accommodate button */
+    padding: 12px;
+    font-size: 18px; /* Larger font size */
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #ccc; /* Border color */
+    box-sizing: border-box;
+    background-color: #333; /* Background color */
+    color: #ffffff; /* Text color */
+    margin: 0%;
+}
+
+.search-box button {
+    padding: 12px 20px; /* Increased padding */
+    font-size: 20px; /* Larger font size */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #3b3b3b; /* Button background color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor */
+    margin-left: 5px; /* Spacing between input and button */
+    display: flex; /* Flexbox for icon and text alignment */
+    align-items: center; /* Center items vertically */
+    width: 70px;
+}
+
+.search-box button i {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+.search-box button:hover {
+    background-color: #555555; /* Darker color on hover */
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 10px;
+    background-color: #333;
+    color: #ffffff;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #3b3b3b;
+    color: #ffffff;
+    cursor: pointer;
+    width: 120px;
+    text-align: center;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #555555;
+}
+
+#createPlaylistContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+
+#createPlaylistContainer button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    border-radius: 50%; /* Makes the button circular */
+    background-color: #3b3b3b; /* Background color of the button */
+    border: none; /* Remove default border */
+    color: #ffffff; /* Color of the icon */
+    font-size: 20px; /* Adjust icon size */
+    cursor: pointer; /* Show pointer cursor on hover */
+    outline: none; /* Remove default outline */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effect */
+    margin-left: 20px;
+}
+
+#createPlaylistContainer button:hover {
+    background-color: #555555; /* Change color on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+#createPlaylistContainer i {
+    pointer-events: none; /* Ensure clicks go through the icon to the button */
+}
+
+#queueButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px; /* Adjust the size as needed */
+    height: 45px; /* Adjust the size as needed */
+    border-radius: 10%; /* Makes the button circular */
+    background-color: #3b3b3b; /* Background color of the button */
+    border: none; /* Remove default border */
+    color: #ffffff; /* Color of the icon */
+    font-size: 20px; /* Adjust icon size */
+    cursor: pointer; /* Show pointer cursor on hover */
+    outline: none; /* Remove default outline */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effect */
+}
+
+#queueButton:hover {
+    background-color: #555555; /* Change color on hover */
+    transform: scale(1.05); /* Enlarge button on hover */
+}
+
+.notification {
+    position: fixed;
+    bottom: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.note {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    overflow: hidden; 
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.center-text {
+    text-align: center; /* Center text within the container */
+    display: block;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically (optional) */
+    height: 1px; /* Adjust based on your layout */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.results-container {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    padding: 0 10px; /* Add padding for better spacing on smaller screens */
+    box-sizing: border-box; /* Ensure padding is included in the element's total width */
+}
+
+/* Styling for #results */
+#results {
+    margin: 0px -10px;
+    padding: 0;
+    padding-bottom: 130px;
+    padding-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* Styling for #results ul */
+#results ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* Remove default margin for a more compact layout */
+}
+
+/* Styling for list items in #results */
+#results li {
+    background-color: #2a2a2a;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Styling for images inside list items */
+#results li img {
+    width: 80px; /* Adjust width */
+    height: 45px; /* Adjust height */
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+/* Styling for text inside list items */
+#results li span {
+    flex: 1;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px; /* Adjust font size */
+}
+
+/*1st trail */
+
+/* Base styles for the queue window */
+#queueWindow {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the window */
+    width: 800px; /* Adjust width as needed */
+    height: 85%; /* Adjust height as needed */
+    background-color: #2a2a2a; /* Background color for the queue window */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for better visibility */
+    padding: 15px; /* Padding inside the window */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+.queue-window .close-button {
+    background-color: #3b3b3b; /* Background color */
+    color: #ffffff; /* Text color */
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    position: relative; /* Position relative to the header */
+}
+
+/* Header inside the queue window */
+.queue-window-header {
+    display: flex; /* Use flexbox to align items */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Space below the header */
+}
+
+.queue-list {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 12px; /* Padding around the item */
+    margin-bottom: 5px; /* Spacing between items */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Adjusted for better readability */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #2a2a2a; /* Background color for the item */
+    color: #ffffff; /* Text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.queue-list:hover {
+    background-color: #3b3b3b; /* Slightly lighter background color on hover */
+    transform: scale(1); /* Slightly increase size on hover */
+}
+
+.queue-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 15px; /* Space between text and button */
+    cursor: pointer;
+}
+
+#queueWindow .close-button:hover {
+    background-color: #555555; /* Darker color on hover */
+}
+
+#closeQueueWindow {
+    font-size: large;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#closeQueueWindow:hover {
+    transform: scale(1.05);
+}
+
+.queue-window-header button#clearQueueButton {
+    width: 80px;
+    height: 40px;
+    margin-right: 10px;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(216, 12, 12);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.queue-window-header button#clearQueueButton:hover {
+    background-color: #cb0c0c;
+    transform: scale(1.06);
+}
+
+.remove-button {
+    width: 60px;
+    height: 30px;
+    top: 10;
+    flex-shrink: 0;
+    background-color: red; /* Red color for the button */
+    color: white; /* White text color */
+    border: none; /* No border */
+    padding: 5px 5px; /* Padding inside the button */
+    border-radius: 3px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.remove-button {
+    flex-shrink: 0;
+}
+
+.remove-button:hover {
+    background-color: darkred; /* Darker red on hover */
+}
+
+.remove-button i {
+    font-size: 12px; /* Font size for the icon */
+}
+
+/* Base styles for audio player */
+.audio-player-container {
+    position: fixed; 
+    bottom: 0;
+    left: 7%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #181818;
+    padding: 10px 0; /* Add padding for spacing */
+}
+
+audio {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 50px;
+}
+
+.audio-title {
+    margin: 10px 0; /* Add margin for spacing */
+    color: #ffffff;
+    font-size: 16px; /* Increase font size for better readability */
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    max-width: 40ch; /* Adjust to fit approximately 30 characters */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+    white-space: nowrap; /* Prevent text wrapping */
+    display: inline-block; /* Ensure proper display of the ellipsis */
+}
+
+.audio-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Add margin for spacing */
+    margin-left: 60px;
+}
+
+.audio-controls button {
+    padding: 10px 20px;
+    margin: 0 10px; /* Adjust margin between buttons */
+    background-color: #3b3b3b;
+    border: 1px solid #b4a8a8;
+    border-radius: 5px; 
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.audio-controls button:hover {
+    background-color: #555555;
+}
+
+#loopButton {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #3b3b3b;
+    border: 1px solid #b4a8a8;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#loopButton.active {
+    background-color: rgb(22, 207, 87); 
+    color: #171616;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #181818;
+    margin: 5% auto; /* Center the modal vertically and horizontally */
+    padding: 10px;
+    border: 10px solid #181818;
+    border-radius: 10px;
+    width: 30%; /* Adjust the width based on your design */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.modal-content input {
+    width: 80%; /* Adjust as needed */
+    padding: 15px;
+}
+
+.modal-content button {
+    width: 30%; /* Adjust as needed */
+    padding: 10px;
+    box-sizing: border-box; /* Ensure padding is included in width */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color:royalblue;
+    color: white;
+}
+
+.close-button {
+    color: #b9afaf;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s !important;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: rgb(165, 156, 156);
+    text-decoration: none;
+    cursor: pointer;
+    transform: scale(1.1) !important;
+}
+
+.showPlaylistmodal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+#playlistNameInput {
+    margin-bottom: 20px;
+}
+
+.createPlaylistBtn {
+    transition: background-color 0.3s, transform 0.3s;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.createPlaylistBtn:hover {
+    transform: scale(1.05);
+}
+
+/* Modal Container */
+.showPlaylistsModal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.4); /* Semi-transparent background */
+}
+
+.show-playlists-modal-content {
+    background-color: #181818;
+    margin: 5% auto; /* Center the modal vertically and horizontally */
+    padding: 10px;
+    border: 10px solid #181818;
+    border-radius: 10px;
+    width: 30% !important; 
+    max-width: 100%;/* Adjust the width based on your design */
+    max-height: 90vh; /* Max height relative to the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+/* Heading inside Modal */
+.show-playlists-modal-content h2 {
+    font-size: 24px; /* Default font size for larger screens */
+    font-weight: bold;
+    color: #ffffff; /* Text color */
+    margin: 0 0 20px; /* Margin below the heading */
+    text-align: center; /* Center align heading text */
+    padding: 0 10px; /* Padding to avoid touching edges */
+}
+
+/* Playlist List */
+#playlistList {
+    max-height: 400px; /* Adjust this value as needed */
+    overflow-y: auto; /* Enable vertical scrolling for the playlist list */
+    padding: 0 10px; /* Padding for the list */
+    margin: 0; /* Remove extra margin */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Playlist List Items */
+#playlistList ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none; /* Remove default list styling */
+    width: 100%;
+}
+
+/* Button inside list items */
+#playlistList ul button {
+    display: flex;
+    justify-content: center; /* Center the text inside the button */
+    align-items: center; /* Center the text inside the button */
+    width: 100%; /* Full width */
+    padding: 10px;
+    border: 1px solid #ccc; /* Light border for button */
+    color: white;
+    background-color: #3b3b3b; /* Background color for button */
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 130;
+    font-size: small;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+    margin: 7px -10px; /* Space around the button */
+    overflow: hidden; /* Ensure text does not overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    white-space: normal; /* Allows the text to wrap */
+    word-wrap: break-word; /* Breaks long words to wrap */
+    word-break: break-word; /* Ensures word breaks to fit */
+    text-align: center; /* Centers the text horizontally */
+}
+
+/* Button Hover State */
+#playlistList ul button:hover {
+    background-color: #555555; /* Darker color on hover */
+    transform: scale(1.02); /* Slightly enlarge button on hover */
+}
+
+#loading {
+    position: fixed; /* Fixed positioning */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the loading spinner */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: #ffffff; /* Text color */
+    padding: 20px; /* Padding around the spinner */
+    border-radius: 10px; /* Rounded corners */
+    display: none; /* Hidden by default */
+    z-index: 1000; /* Ensure it appears on top of other elements */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Example style for the loading spinner */
+#loading::before {
+    content: 'Loading...'; /* Text or spinner graphic */
+}
+
+.menu-container {
+    display: inline-block;
+    position: relative;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.menu-icon {
+    background: none; /* No background */
+    border: none; /* No border */
+    color: #ffffff; /* Text color */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 18px; /* Font size */
+    padding: 8px 12px; /* Padding to size the button */
+    margin: 0; /* No extra margin */
+    display: inline-block; /* Behaves like an inline block element */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for background color and transform */
+    border-radius: 20%; /* Fully rounded button */
+}
+
+/* Hover effect (optional) */
+.menu-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle background color change on hover */
+    transform: none; /* No transformation on hover */
+}
+
+/* Active state (when clicked) */
+.menu-icon:active {
+    background-color: rgba(255, 255, 255, 0.2); /* Slightly more pronounced background color change on click */
+    transform: scale(0.95); /* Slightly scale down on click for a pressed effect */
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown-menu button {
+    display: block;
+    padding: 10px;
+    background-color: #3b3b3b;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    box-sizing:border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.dropdown-menu button:hover {
+    background-color: #555555;
+}
+
+.name-btn {
+    white-space: normal; /* Allows the text to wrap */
+    word-wrap: break-word; /* Breaks long words to wrap */
+    word-break: break-word; /* Ensures word breaks to fit */
+    text-align: center; /* Centers the text horizontally */
+}
+  
+#navbarToggle:disabled {
+    display: none;
+    cursor: not-allowed;
+}
+
+.empty-playlist-message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #228B22;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 500;
+}
+
+/* Media queries for mobile devices */
+@media (max-width: 768px) {
+    .container {
+        margin-left: 20px;
+        margin-bottom: 30px;
+        position: fixed;
+        text-align: center;
+        right: -6%;
+        overflow-y: auto;
+        position: absolute;
+    }
+
+    .search-box {
+        width: 80%; /* Full width for smaller screens */
+        padding: 10px;
+    }
+
+    .search-box input[type="text"] {
+        width: calc(100% - 80px); /* Adjust width to fit within the search box */
+        font-size: 16px; /* Slightly smaller font size */
+    }
+
+    .search-box button {
+        width: 40px;
+        font-size: 14px;
+        text-align: center;
+        justify-content: center;
+        height: 40px;
+    }
+
+    button {
+        width: 100px; /* Adjust button width for mobile */
+    }
+    
+    #createPlaylistContainer {
+        width: 60px; /* Adjust width for mobile */
+    }
+
+    #createPlaylistContainer button {
+        width: 40px; /* Adjust button size */
+        height: 40px; /* Adjust button size */
+        font-size: 18px; /* Adjust font size */
+    }
+    
+    #queueButton {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    /* Adjust .note class */
+    .note {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        overflow: hidden; 
+        word-wrap: break-word;
+        white-space: normal;
+        font-size: small;
+        margin-right: 20px;
+    }
+
+    /* Adjust .center-text class */
+    .center-text {
+        font-size: small;
+        margin-top: 10px;
+        margin-right: 44px;
+        text-align: center; /* Center text within the container */
+        display: flex; /* Use flex for better alignment */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        height: auto;
+    }
+
+    #queueWindow {
+        width: 90%; /* Full width with padding */
+        height: 80%; /* Adjust height for mobile screens */
+        top: 50%; /* Center vertically */
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center the window */
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .queue-window-header {
+        flex-direction: row; /* Ensure horizontal alignment */
+        justify-content: space-between; /* Space between items */
+        align-items: center; /* Center items vertically */
+    }
+
+    .queue-window-header button#clearQueueButton {
+        width: 60px; /* Adjust width for mobile */
+        height: 30px; /* Keep button height consistent */
+        padding: 8px; /* Adjust padding */
+        font-size: 14px; /* Smaller font size */
+        margin-right: 20px; /* Remove right margin */
+    }
+
+    #closeQueueWindow {
+        font-size: medium; /* Adjust font size for mobile */
+    }
+
+    /* Results container for mobile screens */
+    .results-container {
+        overflow-y: auto;
+        width: 98%;
+        padding: 0 15px; /* Adjust padding for mobile screens */
+        box-sizing: border-box; /* Ensure padding is included in the width */
+    }
+
+    /* List items in results */
+    #results li {
+        flex-direction: row; /* Keep items horizontally aligned */
+        align-items: center;
+        padding: 5px; /* Reduce padding for mobile screens */
+        margin: 5px -20px;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box; /* Include padding and border in width */
+    }
+
+    /* Images in results */
+    #results li img {
+        width: 80px; /* Adjust width for mobile */
+        height: 50px; /* Adjust height for mobile */
+    }
+
+    /* Text in results */
+    #results li span {
+        font-size: 12px; /* Adjust font size for better readability */
+        overflow: hidden; /* Hide overflowing text */
+        text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+    }
+
+    /* Audio player container adjustments */
+    .audio-player-container {
+        width: 100%; /* Ensure the container takes full width */
+        padding: 10px; /* Adjust padding for smaller screens */
+        box-sizing: border-box; /* Include padding in width */
+        margin: 0px -28px; /* Remove margin to prevent shrinking */
+    }
+
+    /* Audio element adjustments */
+    audio {
+        width: 100%; /* Ensure the audio player takes full width */
+        margin: 0; /* Remove margin for mobile screens */
+    }
+
+    /* Audio title adjustments */
+    .audio-title {
+        font-size: 14px; /* Reduce font size for better readability on small screens */
+    }
+
+    /* Audio controls adjustments */
+    .audio-controls {
+        margin: 0; /* Remove margin */
+        flex-direction: row; /* Align buttons horizontally */
+        flex-wrap: wrap; /* Wrap buttons if necessary */
+    }
+
+    /* Audio controls buttons */
+    .audio-controls button {
+        padding: 8px 15px; /* Adjust padding for smaller screens */
+        font-size: 14px; /* Reduce font size */
+        margin: 5px; /* Adjust margin between buttons */
+        box-sizing: border-box; /* Ensure padding is included in width */
+    }
+
+
+    .modal-content {
+        width: 90%; /* Full width for smaller screens */
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+
+    .modal-content input {
+        width: calc(100% - 20px); /* Adjust input width for smaller screens */
+    }
+
+    .modal-content button {
+        padding: 12px; /* Adjust button padding for smaller screens */
+        font-size: 16px; /* Smaller font size for mobile */
+    }
+
+    .close-button {
+        font-size: 24px; /* Smaller close button font size for mobile */
+    }
+
+    .show-playlists-modal-content {
+        width: 80% !important; /* Adjust width for mobile phones */
+        padding: 15px; /* Adjust padding for mobile phones */
+    }
+
+    #playlistList {
+        max-height: 300px; /* Reduce max height for smaller screens */
+    }
+
+    #playlistList ul button {
+        margin-left: 20%;
+        width: 150px; /* Adjust button width for smaller screens */
+        font-size: 12px; /* Smaller font size for mobile */
+        padding: 8px; /* Adjust button padding for smaller screens */
+        white-space: normal; /* Allows the text to wrap */
+        word-wrap: break-word; /* Breaks long words to wrap */
+        word-break: break-word; /* Ensures word breaks to fit */
+        text-align: center; /* Centers the text horizontally */
+    }
+
+     /* Adjust menu icon for mobile screens */
+    .menu-icon {
+        font-size: 20px; /* Smaller font size for mobile */
+        padding: 6px 10px; /* Reduced padding for mobile */
+    }
+
+    /* Adjust dropdown menu for mobile screens */
+    .dropdown-menu {
+        width: 100%; /* Ensure dropdown menu fits within the screen width */
+        top: 100%; /* Adjust top position for better visibility */
+    }
+
+    /* Adjust button in dropdown menu for mobile screens */
+    .dropdown-menu button {
+        font-size: 10px; /* Larger font size for easier tapping */
+        padding: 12px; /* Increase padding for better touch targets */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
