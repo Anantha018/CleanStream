@@ -30,7 +30,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://cleanstream-production.up.railway.app',
 ]
 
-ALLOWED_HOSTS = ['cleanstream-production.up.railway.app','*']
+ALLOWED_HOSTS = ['cleanstream-production.up.railway.app','https://cleanstream.site/','*']
 
 # Application definition
 
