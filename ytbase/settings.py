@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-=9%aws+k7*izh&br_-l)&2(wt@3c%l8_97zet7smtzyileera*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+CSRF_COOKIE_DOMAIN = 'cleanstream-production.up.railway.app'
+CSRF_TRUSTED_ORIGINS = [
+    'https://cleanstream-production.up.railway.app',
+]
+
+ALLOWED_HOSTS = ['cleanstream-production.up.railway.app','*']
 
 # Application definition
 
@@ -41,10 +46,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
