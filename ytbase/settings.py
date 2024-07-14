@@ -28,6 +28,7 @@ DEBUG = True
 CSRF_COOKIE_DOMAIN = 'cleanstream-production.up.railway.app'
 CSRF_TRUSTED_ORIGINS = [
     'https://cleanstream-production.up.railway.app',
+    'https://cleanstream.site/',
 ]
 
 ALLOWED_HOSTS = ['cleanstream-production.up.railway.app','https://cleanstream.site/','*']
