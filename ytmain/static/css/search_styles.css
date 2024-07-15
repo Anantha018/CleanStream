@@ -799,7 +799,7 @@ audio {
     }
 
     #closeQueueWindow {
-        font-size: medium; /* Adjust font size for mobile */
+        width: 60px;
     }
 
     /* Results container for mobile screens */
@@ -814,8 +814,8 @@ audio {
     #results li {
         flex-direction: row;
         align-items: center;
-        padding: 5px;
-        margin: 6px 0px;
+        padding: 2px;
+        margin: 10px -20px;
         width: 100%;
         box-sizing: border-box;
     }

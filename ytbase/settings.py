@@ -114,6 +114,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+CSRF_FAILURE_VIEW = 'ytmain.views.csrf_failure'
+
+
 STATIC_URL = '/static/'
 
 # Define the path for static files

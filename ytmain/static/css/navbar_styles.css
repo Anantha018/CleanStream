@@ -42,10 +42,10 @@ body {
     color: #ffffff;
     text-decoration: none;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: bold;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
+  
 /* Navbar link hover state */
 .navbar ul li a:hover {
     text-decoration: underline;
@@ -74,6 +74,11 @@ body {
 /* Navbar toggle button hover state */
 .navbar-toggle:hover {
     transform: scale(1.05); /* Enlarge button on hover */
+}
+
+.close-btn-container {
+    transform: translateX(-50%);
+    margin: 70px !important;
 }
 
 /* Search text margin adjustment */
@@ -215,7 +220,7 @@ body {
 .play-playlist-btn {
     align-items: center;
     justify-content: center;
-    width: 10% !important; /* Fixed width */
+    width: 15% !important; /* Fixed width */
     padding: 10px;
     box-sizing: border-box; /* Ensure padding is included in width */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -252,10 +257,13 @@ body {
 }
 
 .details-list-removebtn {
+    width: 55px;
     margin-top: 8px; /* Adds space above the button */
     background-color: crimson;
     font-weight: bold;
     transition: transform 0.3s ease; /* Apply transition for smooth scaling */
+    display: flex; /* Enable flexbox for the button */
+    align-items: center;
 }
 
 .details-list-removebtn:hover {
@@ -316,8 +324,8 @@ body {
 
     .play-playlist-btn {
         width: 25% !important; /* Make the button larger on mobile */
-        margin-left: 40%; /* Center the button */
-        font-size: medium; /* Adjust font size for mobile */
+        margin-left: 35%; /* Center the button */
+        font-size: small; /* Adjust font size for mobile */
     }
 
     .details-list {
@@ -325,9 +333,14 @@ body {
     }
 
     .details-list-removebtn {
-        width: 39%; /* Make the button take full width on mobile */
-        margin-top: 8px; /* Adjust margin for spacing */
-        font-size: small; /* Adjust font size for mobile */
+        width: 54px;
+        height: 23px;
+        margin-top: 8px !important;
+        background-color: crimson;
+        font-weight: bold;
+        transition: transform 0.3s ease;
+        display: flex;
+        align-items: center !important;
     }
 
     .empty-playlist-message {
@@ -386,7 +399,4 @@ body {
         width: 50%; /* Make the playlist name button larger on mobile */
         font-size: small; /* Adjust font size for mobile */
     }
-
-
 }
-

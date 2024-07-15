@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
 
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -238,3 +239,6 @@ def delete_playlist(request):
         except json.JSONDecodeError:
             return JsonResponse({'status': 'error', 'message': 'Invalid JSON data'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+def csrf_failure(request, reason=""):
+    return render(request, 'csrf_error.html')

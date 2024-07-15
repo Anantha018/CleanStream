@@ -48,7 +48,9 @@
 </div>
 
 <div class="audio-player-container">
-    <audio id="audioPlayer" controls></audio>
+    <audio id="audioPlayer" controls>
+        <source src="audio.ogg" type="audio/ogg"> <source src="audio.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+    </audio>      
     <div id="audioTitle" class="audio-title"></div>
     <div class="audio-controls">
         <button id="prevButton" onclick="playPreviousButton()">
@@ -80,6 +82,55 @@
         <div id="emptyPlaylistMessage" class="empty-playlist-message" style="display: none;">Create a playlist to add your songs</div>
     </div>
 </div>
+
+<script>
+    // Function to set a flag in sessionStorage when user logs in
+    function setLoginFlag() {
+        sessionStorage.setItem('justLoggedIn', 'true');
+    }
+
+    // Function to check if the user has just logged in
+    function hasJustLoggedIn() {
+        return sessionStorage.getItem('justLoggedIn') === 'true';
+    }
+
+    // Function to handle navigation
+    function handleNavigation(event) {
+        if (hasJustLoggedIn() && event.type === 'popstate') {
+            var confirmLeave = confirm("Are you sure you want to leave this page? You will be logged out.");
+            if (confirmLeave) {
+                // If user confirms, clear the flag and allow navigation
+                sessionStorage.removeItem('justLoggedIn');
+            } else {
+                // If user cancels, prevent navigation and stay on the page
+                history.pushState(null, "", window.location.href);
+                event.preventDefault();
+            }
+        }
+    }
+
+    // Set the flag when the page loads (assuming this is the page after login)
+    setLoginFlag();
+
+    // Push current state to history when page loads
+    history.pushState(null, "", window.location.href);
+
+    // Add event listener for popstate event (triggered when back button is pressed)
+    window.addEventListener('popstate', handleNavigation);
+
+    // Function to handle logout
+    function handleLogout() {
+        sessionStorage.removeItem('justLoggedIn');
+        // Proceed with logout (redirect to login page or send logout request)
+        window.location.href = "{% url 'logout' %}";
+    }
+
+    // Add event listener to logout button
+    document.querySelector('a[href="{% url 'logout' %}"]').addEventListener('click', function(e) {
+        e.preventDefault();
+        handleLogout();
+    });
+</script>
 
 {% endblock %}
 

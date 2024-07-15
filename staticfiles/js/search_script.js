@@ -25,17 +25,18 @@ function fetchQueue() {
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
-            // Ensure that video_url is used and converted if necessary
             queue = data.queue.map(item => ({
                 videoUrl: item.video_url,
                 title: item.title
             }));
-            updateQueueDisplay(); // Update the queue display with the fetched data
+            updateQueueDisplay();
         } else {
-            console.error('Failed to fetch queue:', data.message);
+            // Silently fail without logging or showing any message
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        // Silently fail without logging or showing any message
+    });
 }
 
 
@@ -64,7 +65,7 @@ function search() {
                 if (result && result.link && result.title && result.thumbnail) {
                     createResultElement(result.link, result.title, result.thumbnail, ul);
                 } else {
-                    console.error('Result is missing link, title, or thumbnail:', result); // Log error
+                    // Silently fail without logging or showing any message
                 }
             });
 
@@ -80,7 +81,7 @@ function search() {
     .catch(error => {
         showLoading(false); // Hide loading indicator in case of error
         document.getElementById('searchButton').disabled = false; // Enable search button
-        console.error('Error:', error);
+        // Silently fail without logging or showing any message
     });
 }
 
@@ -126,7 +127,9 @@ function showPlaylists(videoUrl, title) {
         });
         showShowPlaylistsModal(); // Show the playlists modal
     })
-    .catch(error => console.error('Error fetching playlists:', error));
+    .catch(error => {
+        // Silently fail without logging or showing any message
+    });
 }
 
 // Show the Playlists Modal
@@ -174,7 +177,6 @@ function addToPlaylist(playlistId, videoUrl, title) {
         }
     })
     .catch(error => {
-        console.error('Error adding to playlist:', error);
         showNotification('Failed to add to playlist');
     });
 }
@@ -212,7 +214,6 @@ function createPlaylist() {
             }
         })
         .catch(error => {
-            console.error('Error creating playlist:', error);
             showNotification('Failed to create playlist');
         });
     }
@@ -296,7 +297,6 @@ function addToQueue(videoUrl, title) {
         }
     })
     .catch(error => {
-        console.error('Error:', error);
         showNotification('Failed to add to queue');
     });
 }
@@ -357,7 +357,6 @@ function addPlaylistToQueue(videoUrl, title) {
         }
     })
     .catch(error => {
-        console.error('Error:', error);
         showNotification('Failed to add to queue');
         throw error;  // Re-throw to handle in the calling function
     });
@@ -384,7 +383,7 @@ async function addItemsToQueueSequentially(items) {
             await addPlaylistToQueue(item.video_url, item.title);
             
         } catch (error) {
-            console.error('Error adding item to queue:', error);
+            //Do nothing
         }
     }
     fetchQueue();
@@ -427,7 +426,9 @@ function removeFromQueue(index) {
             showNotification(data.message);
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        //do nothing
+    });
 }
 
 function playAudio(videoUrl, fromQueue = false, songTitle='Unknown title') {
@@ -435,7 +436,6 @@ function playAudio(videoUrl, fromQueue = false, songTitle='Unknown title') {
     audioTitleElement.textContent = songTitle; // Set the title text
 
     if (!videoUrl) {
-        console.error('Invalid video URL:', videoUrl);
         return;
     }
     fetchAudioUrl(videoUrl).then(audioUrl => {
@@ -452,10 +452,11 @@ function playAudio(videoUrl, fromQueue = false, songTitle='Unknown title') {
             document.classList.add('audio-title');
         } else {
             showNotification("Retry or song unavailable");
-            console.error('Failed to fetch audio URL for:', videoUrl);
             document.title = 'Clean Stream'
         }
-    }).catch(error => console.error('Error fetching audio URL:', error));
+    }).catch(error => {
+        //do nothing
+    });
 }
 
 function playAudioFromQueue(index) {
@@ -463,7 +464,7 @@ function playAudioFromQueue(index) {
         currentIndex = index;
         playAudio(queue[currentIndex].videoUrl, true, queue[currentIndex].title);
     } else {
-        console.error('Queue item does not exist at index:', index);
+        //do nothing
     }
 }
 
@@ -493,7 +494,6 @@ function clearQueue() {
         }
     })
     .catch(error => {
-        console.error('Error:', error);
         showNotification('Error clearing queue');
     });
 }
@@ -548,7 +548,7 @@ function showNotification(message) {
     setTimeout(() => {
         notification.classList.remove('show');
         notification.classList.add('hide');
-    }, 3000); // Duration to show notification (3 seconds)
+    }, 4000); // Duration to show notification (3 seconds)
 }
 
 // Toggle the queue window visibility
@@ -620,17 +620,6 @@ window.addEventListener('scroll', updateButtonState);
 // Initial call to set correct state on page load
 updateButtonState();
 
-function updateButtonState() {
-  if (window.scrollY > 0) {
-    navbarToggle.disabled = !isInViewport(searchContainer);
-  } else {
-    navbarToggle.disabled = false;
-  }
-}
-
-window.addEventListener('scroll', updateButtonState);
-updateButtonState();
-
 // Helper function to get CSRF token from cookies
 function getCookie(name) {
     let cookieValue = null;
@@ -644,9 +633,7 @@ function getCookie(name) {
             }
         }
     }
-    return cookieValue;
-
-
+    return cookieValue;    
 
     
 }
