@@ -112,11 +112,15 @@ body {
     text-decoration: underline;
 }
 
-.footer {
+.footer {   
     display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
     bottom: 10px;
     margin-left: 100px;
+}
+
+.footer a {
+    color: #007bff;
 }
