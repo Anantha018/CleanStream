@@ -172,7 +172,7 @@
         // Fetch playlist details and then add items to queue sequentially
         function getPlaylistDetails(playlistId) {
             hideShowAllPlaylistsModal();
-            disableMenuContainers();
+            //disableMenuContainers();
             fetch(`/get-playlist-details/${playlistId}/`, {
                 method: 'GET',
                 headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -203,7 +203,7 @@
                             playPlaylistBtn.disabled = false;
                             playQueue();  // Start playing the queue after all items are added
                             playPlaylistBtn.classList.remove('loading'); 
-                            enableMenuContainers();
+                            //enableMenuContainers();
                         }
                     });
                     playlistDetailsList.appendChild(playPlaylistBtn);
@@ -229,7 +229,7 @@
                 
             })
             .catch(error => {
-                enableMenuContainers();
+                //enableMenuContainers();
             });
         }
         

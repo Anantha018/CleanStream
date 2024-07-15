@@ -812,14 +812,14 @@ audio {
 
     /* List items in results */
     #results li {
-        flex-direction: row;
+        flex-direction: row; /* Keep items horizontally aligned */
         align-items: center;
-        padding: 2px;
-        margin: 10px -20px;
-        width: 100%;
-        box-sizing: border-box;
+        padding: 5px; /* Reduce padding for mobile screens */
+        margin: 5px -20px;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box; /* Include padding and border in width */
     }
-
+    
     /* Images in results */
     #results li img {
         width: 80px; /* Adjust width for mobile */
