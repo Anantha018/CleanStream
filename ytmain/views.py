@@ -72,10 +72,9 @@ def get_audio_url(request):
     try:
         yt_url = f'https://www.youtube.com/watch?v={url}'
         ydl_opts = {
-            'format': 'bestaudio/best',
-            'quiet': True,
-            'noplaylist': True,
-            'extract_flat': True,
+            'format': 'bestaudio[ext=m4a]/best',  # Only download audio
+            'quiet': True,  # Suppress console output
+            'noplaylist': True,  # Do not download playlists
         }
 
         with YoutubeDL(ydl_opts) as ydl:
