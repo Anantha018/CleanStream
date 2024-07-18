@@ -41,20 +41,23 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # Ensure CORS middleware is correctly positioned
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # Ensure this is here
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 # Configure CORS settings
 CORS_ALLOWED_ORIGINS = [
     "https://cleanstream-production.up.railway.app",
     "https://cleanstream.site",
 ]
+
+CSRF_COOKIE_DOMAIN = 'cleanstream.site'
 
 CORS_ALLOW_CREDENTIALS = True
 

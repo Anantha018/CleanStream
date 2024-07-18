@@ -38,6 +38,7 @@ def register_view(request):
             return redirect('login')
     return render(request, 'register.html')
 
+@login_required
 @csrf_exempt
 def logout_view(request):
     logout(request)
@@ -61,7 +62,7 @@ def search_youtube(request):
     # Render the template with results
     return render(request, 'ytmain/search.html', {'results': results, 'query': query})
 
-@login_required
+
 @csrf_exempt
 def get_audio_url(request):
     url = request.GET.get('url', '')
@@ -92,7 +93,7 @@ def get_audio_url(request):
         return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
 
 
-@login_required
+
 @csrf_exempt
 def add_to_queue(request):
     if request.method == 'POST':
@@ -103,7 +104,7 @@ def add_to_queue(request):
         QueueItem.objects.create(user=user, video_url=video_url, title=title)
         return JsonResponse({'status': 'success'})
     
-@login_required
+
 @csrf_exempt
 def remove_from_queue(request):
     if request.method == 'POST':
@@ -117,7 +118,7 @@ def remove_from_queue(request):
             return JsonResponse({'status': 'error', 'message': 'Item not found or not owned by user'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
-@login_required
+
 @csrf_exempt
 def get_queue(request):
     user = request.user
@@ -129,7 +130,7 @@ def get_queue(request):
     }
     return JsonResponse(data)
 
-@login_required
+
 @csrf_exempt
 def clear_queue(request):
     if request.method == 'POST':
@@ -137,7 +138,7 @@ def clear_queue(request):
         return JsonResponse({'status': 'success', 'message': 'Queue cleared'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
-@login_required
+
 @csrf_exempt
 def create_playlist(request):
     if request.method == 'POST':
@@ -153,7 +154,7 @@ def create_playlist(request):
         return JsonResponse({'status': 'error', 'message': 'Invalid name'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
-@login_required
+
 @csrf_exempt
 def add_to_playlist(request):
     if request.method == 'POST':
@@ -179,14 +180,14 @@ def add_to_playlist(request):
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
-@login_required
+
 @csrf_exempt
 def get_playlists(request):
     playlists = Playlist.objects.filter(user=request.user)
     playlist_data = [{'id': playlist.id, 'name': playlist.name} for playlist in playlists]
     return JsonResponse({'playlists': playlist_data})
 
-@login_required
+
 @csrf_exempt
 def get_playlist_details(request, playlist_id):
     try:
@@ -202,7 +203,7 @@ def get_playlist_details(request, playlist_id):
         return JsonResponse({'error': 'Playlist not found'}, status=404)
 
 
-@login_required
+
 @csrf_exempt
 def remove_from_playlist(request):
     if request.method == 'POST':
@@ -220,7 +221,7 @@ def remove_from_playlist(request):
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 
-@login_required
+
 @csrf_exempt
 def delete_playlist(request):
     if request.method == 'POST':
