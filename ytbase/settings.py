@@ -61,7 +61,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CSRF_COOKIE_SECURE = True  # Ensure CSRF cookie is secure in production
 SESSION_COOKIE_SECURE = True  # Ensure session cookie is secure in production
-
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 ROOT_URLCONF = 'ytbase.urls'
 

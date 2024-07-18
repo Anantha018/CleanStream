@@ -39,13 +39,12 @@ def register_view(request):
     return render(request, 'register.html')
 
 
-
 def logout_view(request):
     logout(request)
     return redirect('login')
 
 
-
+@login_required
 def search_youtube(request):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == 'GET':
         query = request.GET.get('query')
@@ -61,7 +60,6 @@ def search_youtube(request):
 
     # Render the template with results
     return render(request, 'ytmain/search.html', {'results': results, 'query': query})
-
 
 
 def get_audio_url(request):
@@ -103,8 +101,6 @@ def add_to_queue(request):
         # Save to the queue model with user association
         QueueItem.objects.create(user=user, video_url=video_url, title=title)
         return JsonResponse({'status': 'success'})
-    
-
 
 def remove_from_queue(request):
     if request.method == 'POST':
