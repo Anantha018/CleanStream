@@ -59,8 +59,8 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_CREDENTIALS = True
 
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True  # Ensure CSRF cookie is secure in production
+SESSION_COOKIE_SECURE = True  # Ensure session cookie is secure in production
 
 
 ROOT_URLCONF = 'ytbase.urls'
@@ -96,6 +96,10 @@ DATABASES = {
         'PORT': '45793',
     }
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

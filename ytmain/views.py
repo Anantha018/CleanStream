@@ -38,14 +38,14 @@ def register_view(request):
             return redirect('login')
     return render(request, 'register.html')
 
-@login_required
-@csrf_exempt
+
+
 def logout_view(request):
     logout(request)
     return redirect('login')
 
-@login_required
-@csrf_exempt
+
+
 def search_youtube(request):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == 'GET':
         query = request.GET.get('query')
@@ -63,7 +63,7 @@ def search_youtube(request):
     return render(request, 'ytmain/search.html', {'results': results, 'query': query})
 
 
-@csrf_exempt
+
 def get_audio_url(request):
     url = request.GET.get('url', '')
 
@@ -94,7 +94,7 @@ def get_audio_url(request):
 
 
 
-@csrf_exempt
+
 def add_to_queue(request):
     if request.method == 'POST':
         user = request.user
@@ -105,7 +105,7 @@ def add_to_queue(request):
         return JsonResponse({'status': 'success'})
     
 
-@csrf_exempt
+
 def remove_from_queue(request):
     if request.method == 'POST':
         user = request.user
@@ -119,7 +119,7 @@ def remove_from_queue(request):
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 
-@csrf_exempt
+
 def get_queue(request):
     user = request.user
     # Assuming you have a Queue model with a ForeignKey to the User model
@@ -131,7 +131,7 @@ def get_queue(request):
     return JsonResponse(data)
 
 
-@csrf_exempt
+
 def clear_queue(request):
     if request.method == 'POST':
         QueueItem.objects.filter(user=request.user).delete()
@@ -139,7 +139,7 @@ def clear_queue(request):
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 
-@csrf_exempt
+
 def create_playlist(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -155,7 +155,7 @@ def create_playlist(request):
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 
-@csrf_exempt
+
 def add_to_playlist(request):
     if request.method == 'POST':
         playlist_id = request.POST.get('playlist_id')
@@ -181,14 +181,14 @@ def add_to_playlist(request):
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 
-@csrf_exempt
+
 def get_playlists(request):
     playlists = Playlist.objects.filter(user=request.user)
     playlist_data = [{'id': playlist.id, 'name': playlist.name} for playlist in playlists]
     return JsonResponse({'playlists': playlist_data})
 
 
-@csrf_exempt
+
 def get_playlist_details(request, playlist_id):
     try:
         playlist = Playlist.objects.get(id=playlist_id, user=request.user)
@@ -204,7 +204,7 @@ def get_playlist_details(request, playlist_id):
 
 
 
-@csrf_exempt
+
 def remove_from_playlist(request):
     if request.method == 'POST':
         try:
@@ -222,7 +222,7 @@ def remove_from_playlist(request):
 
 
 
-@csrf_exempt
+
 def delete_playlist(request):
     if request.method == 'POST':
         try:
