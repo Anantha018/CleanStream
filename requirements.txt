@@ -16,6 +16,7 @@ sqlparse==0.2.4
 tzdata==2024.1
 urllib3==2.2.2
 websockets==12.0
+django-cors-headers==4.4.0
 whitenoise
 yt-dlp 
 gunicorn
