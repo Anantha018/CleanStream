@@ -43,7 +43,7 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
-
+@csrf_exempt
 @login_required
 def search_youtube(request):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == 'GET':
