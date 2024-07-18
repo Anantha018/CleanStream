@@ -38,13 +38,13 @@ def register_view(request):
             return redirect('login')
     return render(request, 'register.html')
 
-
+@login_required
 @csrf_exempt
 def logout_view(request):
     logout(request)
     return redirect('login')
 
-
+@login_required
 @csrf_exempt
 def search_youtube(request):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == 'GET':
