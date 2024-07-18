@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=9%aws+k7*izh&br_-l)&2(wt@3c%l8_97zet7smtzyileera*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 CSRF_COOKIE_DOMAIN = 'cleanstream.site'
 CSRF_TRUSTED_ORIGINS = [
