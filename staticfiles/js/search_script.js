@@ -620,6 +620,61 @@ window.addEventListener('scroll', updateButtonState);
 // Initial call to set correct state on page load
 updateButtonState();
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetchQueue(); 
+    toggleClearQueueButton();
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    let wakeLock = null;
+
+    async function requestWakeLock() {
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+            wakeLock.addEventListener('release', () => {
+                console.log('Wake Lock was released');
+            });
+            console.log('Wake Lock is active');
+        } catch (err) {
+            console.error(`${err.name}, ${err.message}`);
+        }
+    }
+
+    // Request wake lock when the audio starts playing
+    audioPlayer.addEventListener('play', requestWakeLock);
+
+    // Release wake lock when the audio is paused or ends
+    audioPlayer.addEventListener('pause', () => {
+        if (wakeLock !== null) {
+            wakeLock.release().then(() => {
+                wakeLock = null;
+            });
+        }
+    });
+
+    audioPlayer.addEventListener('ended', () => {
+        if (wakeLock !== null) {
+            wakeLock.release().then(() => {
+                wakeLock = null;
+            });
+        }
+    });
+
+    // Handle page visibility changes
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            requestWakeLock();
+        } else {
+            if (wakeLock !== null) {
+                wakeLock.release().then(() => {
+                    wakeLock = null;
+                });
+            }
+        }
+    });
+});
+
+
 // Helper function to get CSRF token from cookies
 function getCookie(name) {
     let cookieValue = null;
