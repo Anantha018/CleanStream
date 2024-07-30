@@ -632,9 +632,9 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             wakeLock = await navigator.wakeLock.request('screen');
             wakeLock.addEventListener('release', () => {
-                console.log('Wake Lock was released');
+                console.log('');
             });
-            console.log('Wake Lock is active');
+            console.log('');
         } catch (err) {
             console.error(`${err.name}, ${err.message}`);
         }
